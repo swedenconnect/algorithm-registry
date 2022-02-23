@@ -47,21 +47,25 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param jcaName
    *          the JCA name
    * @param parameterSpec
    *          the parameter spec
+   * @param order
+   *          the ordering for the algorithm
    * @param joseAlgorithm
    *          the JOSE algorithm
    * @param messageDigestAlgorithm
    *          the message digest algorithm this signature algorithm uses
    */
-  public RSAPSSSignatureAlgorithmImpl(final String uri, final String keyType, final String jcaName,
-      final PSSParameterSpec parameterSpec, final JWSAlgorithm joseAlgorithm, 
+  public RSAPSSSignatureAlgorithmImpl(final String uri, final int order, final String keyType,
+      final String jcaName, final PSSParameterSpec parameterSpec, final JWSAlgorithm joseAlgorithm,
       final MessageDigestAlgorithm messageDigestAlgorithm) {
-    super(uri, keyType, jcaName, joseAlgorithm, messageDigestAlgorithm);
+    super(uri, order, keyType, jcaName, joseAlgorithm, messageDigestAlgorithm);
   }
 
   /**
@@ -76,7 +80,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
 
   /**
    * Creates a builder.
-   * 
+   *
    * @param uri
    *          the algorithm URI
    * @return the builder
@@ -93,7 +97,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
 
   /**
    * Assigns the parameter spec.
-   * 
+   *
    * @param parameterSpec
    *          the parameter spec
    */
@@ -182,7 +186,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
 
   /**
    * Abstract builder for {@link RSAPSSSignatureAlgorithm}.
-   * 
+   *
    * @author Martin Lindström (martin@idsec.se)
    * @author Stefan Santesson (stefan@idsec.se)
    */
@@ -191,24 +195,24 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
 
     /**
      * Constructor.
-     * 
+     *
      * @param algorithmUri
      *          the algorithm URI
      */
     public RSAPSSSignatureAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
     }
-    
+
     /**
      * Assigns the parameter spec.
-     * 
+     *
      * @param parameterSpec
      *          the parameter spec
      */
     public RSAPSSSignatureAlgorithmBuilder parameterSpec(final PSSParameterSpec parameterSpec) {
       this.getAlgorithm().setParameterSpec(parameterSpec);
       return this.getBuilder();
-    }    
+    }
 
     /**
      * Assigns the MGF URI.

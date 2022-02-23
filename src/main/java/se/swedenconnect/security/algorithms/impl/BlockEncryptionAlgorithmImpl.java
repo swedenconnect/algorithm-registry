@@ -37,6 +37,8 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param keyLength
@@ -48,9 +50,9 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
    * @param joseAlgorithm
    *          the JOSE algorithm (may be null)
    */
-  public BlockEncryptionAlgorithmImpl(final String uri, final String keyType, final int keyLength,
-      final int ivLength, final String jcaName, final Algorithm joseAlgorithm) {
-    super(uri, keyType, keyLength, jcaName, joseAlgorithm);
+  public BlockEncryptionAlgorithmImpl(final String uri, final int order, final String keyType,
+      final int keyLength, final int ivLength, final String jcaName, final Algorithm joseAlgorithm) {
+    super(uri, order, keyType, keyLength, jcaName, joseAlgorithm);
     this.setIvLength(ivLength);
   }
 
@@ -124,7 +126,7 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
 
   /**
    * Builder for {@link BlockEncryptionAlgorithm} objects.
-   * 
+   *
    * @author Martin Lindström (martin@idsec.se)
    * @author Stefan Santesson (stefan@idsec.se)
    */

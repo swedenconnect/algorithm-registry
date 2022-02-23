@@ -47,15 +47,13 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param jcaName
    *          the JCA name
-   * @param algorithmIdentifier
-   *          the ASN.1 algorithm identifier
-   * @param joseAlgorithm
-   *          the JOSE algorithm
    */
-  public MessageDigestAlgorithmImpl(final String uri, final String jcaName) {
-    super(uri, jcaName);
+  public MessageDigestAlgorithmImpl(final String uri, final int order, final String jcaName) {
+    super(uri, order, jcaName);
   }
 
   /**

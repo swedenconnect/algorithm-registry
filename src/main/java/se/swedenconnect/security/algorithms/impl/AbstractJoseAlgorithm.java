@@ -36,13 +36,16 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param jcaName
    *          the JCA name
    * @param joseAlgorithm
    *          the JOSE algorithm (may be null)
    */
-  public AbstractJoseAlgorithm(final String uri, final String jcaName, final com.nimbusds.jose.Algorithm joseAlgorithm) {
-    super(uri, jcaName);
+  public AbstractJoseAlgorithm(final String uri, final int order, final String jcaName,
+      final com.nimbusds.jose.Algorithm joseAlgorithm) {
+    super(uri, order, jcaName);
     this.setJoseAlgorithm(joseAlgorithm);
   }
 
@@ -100,7 +103,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    return String.format("%s, jose-algorithm='%s'", super.toString(), 
+    return String.format("%s, jose-algorithm='%s'", super.toString(),
       Optional.ofNullable(this.joseAlgorithm).map(com.nimbusds.jose.Algorithm::toString).orElse("-"));
   }
 
@@ -112,7 +115,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
    */
   protected static abstract class AbstractJoseAlgorithmBuilder<T extends AbstractJoseAlgorithm, B extends AbstractJoseAlgorithmBuilder<T, ? extends AlgorithmBuilder<T>>>
       extends AbstractAlgorithm.AbstractAlgorithmBuilder<T, B> {
-  
+
     /**
      * Constructor.
      *

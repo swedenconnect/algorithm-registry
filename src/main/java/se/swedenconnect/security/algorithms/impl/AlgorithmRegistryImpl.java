@@ -15,6 +15,7 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -116,7 +117,7 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
       .filter(a -> clazz.isInstance(a))
       .map(a -> clazz.cast(a))
       .filter(predicate)
-      .findFirst()
+      .min(Comparator.comparing(Algorithm::getOrder))
       .orElse(null);
   }
 
@@ -125,7 +126,7 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
   public Algorithm getAlgorithm(final Predicate<Algorithm> predicate) {
     return this.registry.values().stream()
       .filter(predicate)
-      .findFirst()
+      .min(Comparator.comparing(Algorithm::getOrder))
       .orElse(null);
   }
 
@@ -134,6 +135,7 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
   public List<Algorithm> getAlgorithms(final Predicate<Algorithm> predicate) {
     return this.registry.values().stream()
       .filter(predicate)
+      .sorted((a1, a2) -> Integer.compare(a1.getOrder(), a2.getOrder()))
       .collect(Collectors.toList());
   }
 
@@ -144,6 +146,7 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
       .filter(a -> clazz.isInstance(a))
       .map(a -> clazz.cast(a))
       .filter(predicate)
+      .sorted((a1, a2) -> Integer.compare(a1.getOrder(), a2.getOrder()))
       .collect(Collectors.toList());
   }
 

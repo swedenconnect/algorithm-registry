@@ -64,6 +64,18 @@ public class AlgorithmPredicates {
   }
 
   /**
+   * Predicate for finding an algorithm based on its key type.
+   *
+   * @param keyType
+   *          the key type
+   * @return a predicate
+   */
+  public static Predicate<Algorithm> fromKeyType(final String keyType) {
+    return (a) -> KeyBasedAlgorithm.class.isInstance(a)
+        && Objects.equals(KeyBasedAlgorithm.class.cast(a).getKeyType(), keyType);
+  }
+
+  /**
    * Predicate for finding an algorithm based on its {@code AlgorithmIdentifier}.
    *
    * @param algorithmIdentifier
@@ -71,12 +83,8 @@ public class AlgorithmPredicates {
    * @return a predicate
    */
   public static Predicate<Algorithm> fromAlgorithmIdentifier(final AlgorithmIdentifier algorithmIdentifier) {
-    return (algorithm) -> {
-      if (!AlgorithmIdentifierAware.class.isInstance(algorithm)) {
-        return false;
-      }
-      return algorithmIdentifier.equals(AlgorithmIdentifierAware.class.cast(algorithm).getAlgorithmIdentifier());
-    };
+    return (a) -> AlgorithmIdentifierAware.class.isInstance(a)
+        && Objects.equals(AlgorithmIdentifierAware.class.cast(a).getAlgorithmIdentifier(), algorithmIdentifier);
   }
 
   /**

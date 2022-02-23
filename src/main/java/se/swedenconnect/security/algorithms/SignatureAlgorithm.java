@@ -17,6 +17,8 @@ package se.swedenconnect.security.algorithms;
 
 /**
  * Representation of a signature algorithm.
+ * <p>
+ *
  *
  * @author Martin Lindström (martin@idsec.se)
  * @author Stefan Santesson (stefan@idsec.se)

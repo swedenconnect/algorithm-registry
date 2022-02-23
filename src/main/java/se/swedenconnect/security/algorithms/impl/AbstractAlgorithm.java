@@ -33,26 +33,32 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /** The JCA name. */
   private String jcaName;
 
+  /** The order. */
+  private int order = Integer.MAX_VALUE;
+
   /** Whether this algorithm is blacklisted. */
   private boolean blacklisted = false;
 
   /**
    * Constructor.
-   * 
+   *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param jcaName
    *          the JCA name
    */
   public AbstractAlgorithm(
-      final String uri, final String jcaName) {
+      final String uri, final int order, final String jcaName) {
     this.uri = Objects.requireNonNull(uri, "The algorithm uri must be set");
+    this.setOrder(order);
     this.setJcaName(jcaName);
   }
 
   /**
    * Protected constructor used by builders.
-   * 
+   *
    * @param uri
    *          the algorithm URI
    */
@@ -72,14 +78,33 @@ public abstract class AbstractAlgorithm implements Algorithm {
     return this.jcaName;
   }
 
+  /** {@inheritDoc} */
+  @Override
+  public int getOrder() {
+    return this.order;
+  }
+
   /**
    * Assigns the JCA name.
-   * 
+   *
    * @param jcaName
    *          the JCA name
    */
   protected void setJcaName(final String jcaName) {
     this.jcaName = Objects.requireNonNull(jcaName, "The algorithm JCA name must be set");
+  }
+
+  /**
+   * Assigns the algorithm order.
+   *
+   * @param order
+   *          the order
+   */
+  protected void setOrder(final int order) {
+    if (order < 1) {
+      throw new IllegalArgumentException("Order must be greater than 0");
+    }
+    this.order = order;
   }
 
   /** {@inheritDoc} */
@@ -101,7 +126,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /** {@inheritDoc} */
   @Override
   public int hashCode() {
-    return Objects.hash(this.blacklisted, this.jcaName, this.uri);
+    return Objects.hash(this.jcaName, this.uri);
   }
 
   /** {@inheritDoc} */
@@ -114,19 +139,20 @@ public abstract class AbstractAlgorithm implements Algorithm {
       return false;
     }
     final AbstractAlgorithm other = (AbstractAlgorithm) obj;
-    return this.blacklisted == other.blacklisted && Objects.equals(this.jcaName, other.jcaName) 
-        && Objects.equals(this.uri, other.uri);
+    // Don't include order and blacklisted - it's still the same algorithm
+    return Objects.equals(this.jcaName, other.jcaName) && Objects.equals(this.uri, other.uri);
   }
 
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    return String.format("uri='%s', jca-name='%s', blacklisted='%s'", this.uri, this.jcaName, this.blacklisted);
+    return String.format("uri='%s', jca-name='%s', order='%d', blacklisted='%s'",
+      this.uri, this.jcaName, this.order, this.blacklisted);
   }
 
   /**
    * Abstract builder for creating {@link Algorithm} objects.
-   * 
+   *
    * @author Martin Lindström (martin@idsec.se)
    * @author Stefan Santesson (stefan@idsec.se)
    */
@@ -138,30 +164,42 @@ public abstract class AbstractAlgorithm implements Algorithm {
 
     /**
      * Constructor.
-     * 
+     *
      * @param algorithmUri
      *          the algorithm URI
      */
     public AbstractAlgorithmBuilder(final String algorithmUri) {
       this.algorithm = this.createAlgorithm(algorithmUri);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public T build() {
       this.assertCorrect();
       return this.algorithm;
-    }    
+    }
 
     /**
      * Assigns the JCA name.
-     * 
+     *
      * @param jcaName
      *          the JCA name
      * @return the builder
      */
     public B jcaName(final String jcaName) {
       this.algorithm.setJcaName(jcaName);
+      return this.getBuilder();
+    }
+
+    /**
+     * Assigns the algorithm order.
+     *
+     * @param order
+     *          the order
+     * @return the builder
+     */
+    public B order(final int order) {
+      this.algorithm.setOrder(order);
       return this.getBuilder();
     }
 
@@ -179,7 +217,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
 
     /**
      * Asserts that all fields have been assigned.
-     * 
+     *
      * @throws IllegalArgumentException
      *           if a required field is missing
      */
@@ -191,14 +229,14 @@ public abstract class AbstractAlgorithm implements Algorithm {
 
     /**
      * Gets the current builder instance.
-     * 
+     *
      * @return the builder instance
      */
     protected abstract B getBuilder();
 
     /**
      * Creates the {@link Algorithm} instance.
-     * 
+     *
      * @param algorithmUri
      *          the algorithm URI
      * @return an Algorithm instance
@@ -207,7 +245,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
 
     /**
      * Gets the algorithm instance that is being built.
-     * 
+     *
      * @return the algorithm instance
      */
     protected final T getAlgorithm() {
