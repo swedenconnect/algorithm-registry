@@ -34,6 +34,7 @@ public class NoParamsRSAPSSSignatureAlgorithm extends RSAPSSSignatureAlgorithmIm
   public NoParamsRSAPSSSignatureAlgorithm() {
     super(XMLSignature.ALGO_ID_SIGNATURE_RSA_PSS);
     this.setKeyType("RSA");
+    this.setOrder(Integer.MAX_VALUE);
     this.setJcaName("RSASSA-PSS");
   }
 

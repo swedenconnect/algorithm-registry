@@ -30,6 +30,8 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param keyLength
@@ -39,9 +41,9 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
    * @param joseAlgorithm
    *          the JOSE algorithm (may be null)
    */
-  public SymmetricKeyWrapImpl(final String uri, final String keyType, final int keyLength,
-      final String jcaName, final com.nimbusds.jose.Algorithm joseAlgorithm) {
-    super(uri, keyType, keyLength, jcaName, joseAlgorithm);
+  public SymmetricKeyWrapImpl(final String uri, final int order, final String keyType,
+      final int keyLength, final String jcaName, final com.nimbusds.jose.Algorithm joseAlgorithm) {
+    super(uri, order, keyType, keyLength, jcaName, joseAlgorithm);
   }
 
   /**
@@ -53,7 +55,7 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
   protected SymmetricKeyWrapImpl(final String uri) {
     super(uri);
   }
-  
+
   /**
    * Creates a builder.
    *

@@ -37,6 +37,8 @@ public abstract class AbstractEncryptionAlgorithm extends AbstractKeyBasedAlgori
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param keyLength
@@ -46,9 +48,9 @@ public abstract class AbstractEncryptionAlgorithm extends AbstractKeyBasedAlgori
    * @param joseAlgorithm
    *          the JOSE algorithm (may be null)
    */
-  public AbstractEncryptionAlgorithm(final String uri, final String keyType, final int keyLength, 
-      final String jcaName, final Algorithm joseAlgorithm) {
-    super(uri, keyType, jcaName, joseAlgorithm);
+  public AbstractEncryptionAlgorithm(final String uri, final int order, final String keyType,
+      final int keyLength, final String jcaName, final Algorithm joseAlgorithm) {
+    super(uri, order, keyType, jcaName, joseAlgorithm);
     this.setKeyLength(keyLength);
   }
 
@@ -108,7 +110,7 @@ public abstract class AbstractEncryptionAlgorithm extends AbstractKeyBasedAlgori
   public String toString() {
     return String.format("%s, key-length='%d'", super.toString(), this.keyLength);
   }
-  
+
   /**
    * Abstract builder for {@link EncryptionAlgorithm} objects.
    *
@@ -117,7 +119,7 @@ public abstract class AbstractEncryptionAlgorithm extends AbstractKeyBasedAlgori
    */
   protected static abstract class AbstractEncryptionAlgorithmBuilder<T extends AbstractEncryptionAlgorithm, B extends AbstractEncryptionAlgorithmBuilder<T, ? extends AlgorithmBuilder<T>>>
       extends AbstractKeyBasedAlgorithm.AbstractKeyBasedAlgorithmBuilder<T, B> {
-  
+
     /**
      * Constructor.
      *
@@ -141,5 +143,5 @@ public abstract class AbstractEncryptionAlgorithm extends AbstractKeyBasedAlgori
     }
 
   }
-  
+
 }

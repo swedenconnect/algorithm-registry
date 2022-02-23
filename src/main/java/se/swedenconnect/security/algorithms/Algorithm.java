@@ -45,6 +45,15 @@ public interface Algorithm {
   String getJcaName();
 
   /**
+   * Gets the order for an algorithm where a lower order is seen as more preferable than an algorithm with a higher
+   * ordering. The ordering is relative to algorithms of the same type, and also other critera such as key or key
+   * length material.
+   *
+   * @return a positive integer
+   */
+  int getOrder();
+
+  /**
    * Tells whether this algorithm is black-listed, i.e., configured to not be allowed.
    *
    * @return true if the algorithm is black-listed and false otherwise

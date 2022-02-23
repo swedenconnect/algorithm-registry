@@ -39,6 +39,8 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param jcaName
    *          the JCA name
    * @param joseAlgorithm
@@ -46,9 +48,9 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
    * @param messageDigestAlgorithm
    *          the message digest algorithm this signature algorithm uses
    */
-  public MacAlgorithmImpl(final String uri, final String jcaName, final JWSAlgorithm joseAlgorithm, 
+  public MacAlgorithmImpl(final String uri, final int order, final String jcaName, final JWSAlgorithm joseAlgorithm,
       final MessageDigestAlgorithm messageDigestAlgorithm) {
-    super(uri, jcaName, joseAlgorithm);
+    super(uri, order, jcaName, joseAlgorithm);
     this.setMessageDigestAlgorithm(messageDigestAlgorithm);
   }
 
@@ -100,7 +102,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
     result = prime * result + Objects.hash(this.messageDigestAlgorithm);
     return result;
   }
-  
+
   /** {@inheritDoc} */
   @Override
   public boolean equals(final Object obj) {
@@ -116,13 +118,13 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
     final MacAlgorithmImpl other = (MacAlgorithmImpl) obj;
     return Objects.equals(this.messageDigestAlgorithm, other.messageDigestAlgorithm);
   }
-  
+
   /** {@inheritDoc} */
   @Override
   public String toString() {
     return String.format("%s, message-digest-algorithm='%s'",
       super.toString(), Optional.ofNullable(this.messageDigestAlgorithm).map(MessageDigestAlgorithm::getUri).orElse("-"));
-  }  
+  }
 
   /**
    * Builder for {@link MacAlgorithm} objects.
@@ -142,7 +144,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
     public MacAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
     }
-    
+
     /**
      * Sets the message digest algorithm.
      *
@@ -154,7 +156,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
       this.getAlgorithm().setMessageDigestAlgorithm(messageDigestAlgorithm);
       return this.getBuilder();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void assertCorrect() throws IllegalArgumentException {
@@ -162,7 +164,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
       if (this.getAlgorithm().getMessageDigestAlgorithm() == null) {
         throw new IllegalArgumentException("messageDigestAlgorithm must be set");
       }
-    }    
+    }
 
     /** {@inheritDoc} */
     @Override

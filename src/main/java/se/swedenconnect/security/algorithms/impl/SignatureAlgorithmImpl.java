@@ -56,6 +56,8 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param jcaName
@@ -65,9 +67,9 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
    * @param messageDigestAlgorithm
    *          the message digest algorithm this signature algorithm uses
    */
-  public SignatureAlgorithmImpl(final String uri, final String keyType, final String jcaName,
-      final JWSAlgorithm joseAlgorithm, final MessageDigestAlgorithm messageDigestAlgorithm) {
-    super(uri, keyType, jcaName, joseAlgorithm);
+  public SignatureAlgorithmImpl(final String uri, final int order, final String keyType,
+      final String jcaName, final JWSAlgorithm joseAlgorithm, final MessageDigestAlgorithm messageDigestAlgorithm) {
+    super(uri, order, keyType, jcaName, joseAlgorithm);
     this.setMessageDigestAlgorithm(messageDigestAlgorithm);
   }
 

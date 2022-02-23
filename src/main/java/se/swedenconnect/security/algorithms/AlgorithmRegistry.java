@@ -40,7 +40,7 @@ public interface AlgorithmRegistry {
   Algorithm getAlgorithm(final String algorithmUri);
 
   /**
-   * Gets an algorithm based on its URI and type
+   * Gets an algorithm based on its URI and type.
    *
    * @param <T>
    *          the algorithm type
@@ -54,6 +54,9 @@ public interface AlgorithmRegistry {
 
   /**
    * Gets the first algorithm that matches the supplied predicate.
+   * <p>
+   * If more than one algorithm matches the supplied predicate, the one with the lowest order is returned.
+   * </p>
    *
    * @param predicate
    *          the predicate to apply
@@ -64,6 +67,9 @@ public interface AlgorithmRegistry {
 
   /**
    * Gets the first algorithm that matches the given type and supplied predicate.
+   * <p>
+   * If more than one algorithm matches the supplied predicate, the one with the lowest order is returned.
+   * </p>
    *
    * @param predicate
    *          the predicate to apply
@@ -76,6 +82,9 @@ public interface AlgorithmRegistry {
 
   /**
    * Gets all algorithms that matches the supplied predicate.
+   * <p>
+   * The list is sorted with the lowest algorithms with the lowest order index first.
+   * </p>
    *
    * @param predicate
    *          the predicate to apply
@@ -85,6 +94,9 @@ public interface AlgorithmRegistry {
 
   /**
    * Gets all algorithms that matches the given type and the supplied predicate.
+   * <p>
+   * The list is sorted with the lowest algorithms with the lowest order index first.
+   * </p>
    *
    * @param predicate
    *          the predicate to apply

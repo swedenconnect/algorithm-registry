@@ -35,6 +35,8 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param jcaName
@@ -42,9 +44,9 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
    * @param joseAlgorithm
    *          the JOSE algorithm (may be null)
    */
-  public AbstractKeyBasedAlgorithm(final String uri, final String keyType, final String jcaName,
+  public AbstractKeyBasedAlgorithm(final String uri, final int order, final String keyType, final String jcaName,
       final com.nimbusds.jose.Algorithm joseAlgorithm) {
-    super(uri, jcaName, joseAlgorithm);
+    super(uri, order, jcaName, joseAlgorithm);
     this.setKeyType(keyType);
   }
 
@@ -113,7 +115,7 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
    */
   protected static abstract class AbstractKeyBasedAlgorithmBuilder<T extends AbstractKeyBasedAlgorithm, B extends AbstractKeyBasedAlgorithmBuilder<T, ? extends AlgorithmBuilder<T>>>
       extends AbstractJoseAlgorithm.AbstractJoseAlgorithmBuilder<T, B> {
-  
+
     /**
      * Constructor.
      *

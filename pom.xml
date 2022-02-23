@@ -6,7 +6,7 @@
 
   <groupId>se.swedenconnect.security</groupId>
   <artifactId>algorithm-registry</artifactId>
-  <version>0.9.0</version>
+  <version>0.9.1-SNAPSHOT</version>
 
   <name>Sweden Connect :: Algorithm Registry library</name>
   <description>A generic algorithm registry</description>

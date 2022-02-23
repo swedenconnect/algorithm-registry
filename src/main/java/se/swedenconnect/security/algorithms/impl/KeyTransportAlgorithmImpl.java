@@ -32,6 +32,8 @@ public class KeyTransportAlgorithmImpl extends AbstractKeyBasedAlgorithm impleme
    *
    * @param uri
    *          the algorithm URI
+   * @param order
+   *          the ordering for the algorithm
    * @param keyType
    *          the key type
    * @param jcaName
@@ -39,9 +41,9 @@ public class KeyTransportAlgorithmImpl extends AbstractKeyBasedAlgorithm impleme
    * @param joseAlgorithm
    *          the JOSE algorithm (may be null)
    */
-  public KeyTransportAlgorithmImpl(final String uri, final String keyType,
-      final String jcaName, final Algorithm joseAlgorithm) {
-    super(uri, keyType, jcaName, joseAlgorithm);
+  public KeyTransportAlgorithmImpl(final String uri, final int order,
+      final String keyType, final String jcaName, final Algorithm joseAlgorithm) {
+    super(uri, order, keyType, jcaName, joseAlgorithm);
   }
 
   /**
