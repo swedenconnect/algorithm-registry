@@ -1,0 +1,72 @@
+/*
+ * Copyright 2022 Sweden Connect
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package se.swedenconnect.security.algorithms;
+
+import java.util.List;
+
+import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
+import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+import org.junit.Assert;
+import org.junit.Test;
+
+import se.swedenconnect.security.algorithms.impl.StaticAlgorithmRegistry;
+
+/**
+ * Test cases for AlgorithmPredicates.
+ *
+ * @author Martin Lindström (martin@idsec.se)
+ * @author Stefan Santesson (stefan@idsec.se)
+ */
+public class AlgorithmPredicatesTest {
+
+  /** The registry we are testing against. */
+  private AlgorithmRegistry registry = new StaticAlgorithmRegistry();
+
+  @Test
+  public void testJcaName() {
+
+    final Algorithm alg = this.registry.getAlgorithm(AlgorithmPredicates.fromJcaName("SHA-512"));
+    Assert.assertNotNull(alg);
+    Assert.assertTrue(MessageDigestAlgorithm.class.isInstance(alg));
+    Assert.assertEquals("SHA-512", alg.getJcaName());
+
+    final MessageDigestAlgorithm malg =
+        this.registry.getAlgorithm(AlgorithmPredicates.fromJcaName("SHA-512"), MessageDigestAlgorithm.class);
+    Assert.assertNotNull(malg);
+
+    final List<MessageDigestAlgorithm> malgs =
+        this.registry.getAlgorithms(AlgorithmPredicates.fromJcaName("SHA-512"), MessageDigestAlgorithm.class);
+    Assert.assertEquals(1, malgs.size());
+
+    // Test when JCA name is not unique
+    final EncryptionAlgorithm ealg = this.registry.getAlgorithm(AlgorithmPredicates.fromJcaName("AESWrap"), EncryptionAlgorithm.class);
+    Assert.assertNotNull(ealg);
+    Assert.assertEquals("AESWrap", ealg.getJcaName());
+
+    final List<EncryptionAlgorithm> ealgs =
+        this.registry.getAlgorithms(AlgorithmPredicates.fromJcaName("AESWrap"), EncryptionAlgorithm.class);
+    Assert.assertTrue(ealgs.size() > 1);
+  }
+
+  @Test
+  public void testAlgorithmIdentifier() throws Exception {
+    final Algorithm alg = this.registry.getAlgorithm(
+      AlgorithmPredicates.fromAlgorithmIdentifier(new AlgorithmIdentifier(NISTObjectIdentifiers.id_sha256)));
+    Assert.assertNotNull(alg);
+    Assert.assertEquals(NISTObjectIdentifiers.id_sha256, MessageDigestAlgorithm.class.cast(alg).getAlgorithmIdentifier().getAlgorithm());
+  }
+
+}
