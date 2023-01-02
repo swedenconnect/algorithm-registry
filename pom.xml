@@ -6,7 +6,7 @@
 
   <groupId>se.swedenconnect.security</groupId>
   <artifactId>algorithm-registry</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <name>Sweden Connect :: Algorithm Registry library</name>
   <description>A generic algorithm registry</description>
@@ -81,6 +81,19 @@
       <groupId>org.apache.santuario</groupId>
       <artifactId>xmlsec</artifactId>
       <version>2.3.2</version>
+      <exclusions>
+        <!-- Version included has reported vulnerabilities -->
+        <exclusion>
+          <groupId>com.fasterxml.woodstox</groupId>
+          <artifactId>woodstox-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.fasterxml.woodstox</groupId>
+      <artifactId>woodstox-core</artifactId>
+      <version>6.4.0</version>
     </dependency>
 
     <dependency>
