@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2023 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package se.swedenconnect.security.algorithms;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test cases for AlgorithmRegistryImpl.
@@ -43,7 +43,7 @@ public class AlgorithmRegistryImplTest {
     while (i.hasNext()) {
       current = i.next();
       if (previous.getOrder() > current.getOrder()) {
-        Assert.fail("Not sorted by order");
+        Assertions.fail("Not sorted by order");
       }
       previous = current;
     }
@@ -51,7 +51,7 @@ public class AlgorithmRegistryImplTest {
     // Assert that we get the lowest entry if we only ask for one.
     //
     final SignatureAlgorithm rsaAlg = registry.getAlgorithm(AlgorithmPredicates.fromKeyType("RSA"), SignatureAlgorithm.class);
-    Assert.assertEquals(first, rsaAlg);
+    Assertions.assertEquals(first, rsaAlg);
   }
 
 }

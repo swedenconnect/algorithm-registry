@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2023 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package se.swedenconnect.security.algorithms;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import se.swedenconnect.security.algorithms.impl.StaticAlgorithmRegistry;
 
@@ -31,7 +31,7 @@ public class StaticAlgorithmRegistryTest {
   @Test
   public void testInstantiate() throws Exception {
     final StaticAlgorithmRegistry registry = new StaticAlgorithmRegistry();
-    Assert.assertNotNull(registry);
+    Assertions.assertNotNull(registry);
   }
 
   @Test
@@ -40,27 +40,27 @@ public class StaticAlgorithmRegistryTest {
 
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultDigestAlgorithms()) {
       final Algorithm algorithm = registry.getAlgorithm(a.getUri());
-      Assert.assertEquals(a, algorithm);
+      Assertions.assertEquals(a, algorithm);
     }
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultSignatureAlgorithms()) {
       final Algorithm algorithm = registry.getAlgorithm(a.getUri());
-      Assert.assertEquals(a, algorithm);
+      Assertions.assertEquals(a, algorithm);
     }
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultMacAlgorithms()) {
       final Algorithm algorithm = registry.getAlgorithm(a.getUri());
-      Assert.assertEquals(a, algorithm);
+      Assertions.assertEquals(a, algorithm);
     }
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultSymmetricKeyWrapAlgorithms()) {
       final Algorithm algorithm = registry.getAlgorithm(a.getUri());
-      Assert.assertEquals(a, algorithm);
+      Assertions.assertEquals(a, algorithm);
     }
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultBlockEncryptionAlgorithms()) {
       final Algorithm algorithm = registry.getAlgorithm(a.getUri());
-      Assert.assertEquals(a, algorithm);
+      Assertions.assertEquals(a, algorithm);
     }
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultKeyTransportAlgorithms()) {
       final Algorithm algorithm = registry.getAlgorithm(a.getUri());
-      Assert.assertEquals(a, algorithm);
+      Assertions.assertEquals(a, algorithm);
     }
 
   }
