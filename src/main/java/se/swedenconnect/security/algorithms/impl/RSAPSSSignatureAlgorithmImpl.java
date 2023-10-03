@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2023 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,22 +45,13 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param keyType
-   *          the key type
-   * @param jcaName
-   *          the JCA name
-   * @param parameterSpec
-   *          the parameter spec
-   * @param order
-   *          the ordering for the algorithm
-   * @param joseAlgorithm
-   *          the JOSE algorithm
-   * @param messageDigestAlgorithm
-   *          the message digest algorithm this signature algorithm uses
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param keyType the key type
+   * @param jcaName the JCA name
+   * @param parameterSpec the parameter spec
+   * @param joseAlgorithm the JOSE algorithm
+   * @param messageDigestAlgorithm the message digest algorithm this signature algorithm uses
    */
   public RSAPSSSignatureAlgorithmImpl(final String uri, final int order, final String keyType,
       final String jcaName, final PSSParameterSpec parameterSpec, final JWSAlgorithm joseAlgorithm,
@@ -71,8 +62,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
   /**
    * Protected constructor used by builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected RSAPSSSignatureAlgorithmImpl(final String uri) {
     super(uri);
@@ -81,8 +71,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static RSAPSSSignatureAlgorithmBuilder getBuilder(final String uri) {
@@ -98,8 +87,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
   /**
    * Assigns the parameter spec.
    *
-   * @param parameterSpec
-   *          the parameter spec
+   * @param parameterSpec the parameter spec
    */
   protected void setParameterSpec(final PSSParameterSpec parameterSpec) {
     this.parameterSpec = parameterSpec;
@@ -118,8 +106,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
   /**
    * Assigns the MGF URI. If not assigned, the default given by {@link RSAPSSSignatureAlgorithm#getMGFUri()} is used.
    *
-   * @param mgfUri
-   *          the MGF URI
+   * @param mgfUri the MGF URI
    */
   public void setMGFUri(final String mgfUri) {
     this.mgfUri = mgfUri;
@@ -139,8 +126,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
    * Assigns the MGF digest algorithm. If not assigned, {@link SignatureAlgorithm#getMessageDigestAlgorithm()} will be
    * used.
    *
-   * @param mgfDigestAlgorithm
-   *          the MGF digest algorithm
+   * @param mgfDigestAlgorithm the MGF digest algorithm
    */
   public void setMGFDigestAlgorithm(final MessageDigestAlgorithm mgfDigestAlgorithm) {
     this.mgfDigestAlgorithm = mgfDigestAlgorithm;
@@ -168,7 +154,8 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
       return false;
     }
     final RSAPSSSignatureAlgorithmImpl other = (RSAPSSSignatureAlgorithmImpl) obj;
-    return Objects.equals(this.mgfDigestAlgorithm, other.mgfDigestAlgorithm) && Objects.equals(this.mgfUri, other.mgfUri);
+    return Objects.equals(this.mgfDigestAlgorithm, other.mgfDigestAlgorithm)
+        && Objects.equals(this.mgfUri, other.mgfUri);
   }
 
   /** {@inheritDoc} */
@@ -196,8 +183,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public RSAPSSSignatureAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -206,8 +192,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
     /**
      * Assigns the parameter spec.
      *
-     * @param parameterSpec
-     *          the parameter spec
+     * @param parameterSpec the parameter spec
      */
     public RSAPSSSignatureAlgorithmBuilder parameterSpec(final PSSParameterSpec parameterSpec) {
       this.getAlgorithm().setParameterSpec(parameterSpec);
@@ -217,8 +202,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
     /**
      * Assigns the MGF URI.
      *
-     * @param mgfUri
-     *          the MGF URI
+     * @param mgfUri the MGF URI
      * @return the builder
      */
     public RSAPSSSignatureAlgorithmBuilder mgfUri(final String mgfUri) {
@@ -229,8 +213,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
     /**
      * Assigns the MGF digest algorithm.
      *
-     * @param mgfDigestAlgorithm
-     *          the MGF digest algorithm
+     * @param mgfDigestAlgorithm the MGF digest algorithm
      * @return the builder
      */
     public RSAPSSSignatureAlgorithmBuilder setMGFDigestAlgorithm(final MessageDigestAlgorithm mgfDigestAlgorithm) {

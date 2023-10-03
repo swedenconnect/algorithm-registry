@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"se.swedenconnect.security.algorithms"},{"l":"se.swedenconnect.security.algorithms.curves"},{"l":"se.swedenconnect.security.algorithms.impl"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"se.swedenconnect.security.algorithms"},{"l":"se.swedenconnect.security.algorithms.curves"},{"l":"se.swedenconnect.security.algorithms.impl"}];updateSearchResults();
