@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2023 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,7 @@ public class AlgorithmPredicates {
   /**
    * Predicate for finding an algorithm based on its JCA name.
    *
-   * @param the
-   *          JCA name
+   * @param jcaName the JCA name
    * @return a predicate
    */
   public static Predicate<Algorithm> fromJcaName(final String jcaName) {
@@ -55,8 +54,7 @@ public class AlgorithmPredicates {
   /**
    * Predicate for finding an algorithm based on its type.
    *
-   * @param type
-   *          the algorithm type
+   * @param type the algorithm type
    * @return a predicate
    */
   public static Predicate<Algorithm> fromType(final AlgorithmType type) {
@@ -66,8 +64,7 @@ public class AlgorithmPredicates {
   /**
    * Predicate for finding an algorithm based on its key type.
    *
-   * @param keyType
-   *          the key type
+   * @param keyType the key type
    * @return a predicate
    */
   public static Predicate<Algorithm> fromKeyType(final String keyType) {
@@ -78,8 +75,7 @@ public class AlgorithmPredicates {
   /**
    * Predicate for finding an algorithm based on its {@code AlgorithmIdentifier}.
    *
-   * @param algorithmIdentifier
-   *          the algorithm identifier
+   * @param algorithmIdentifier the algorithm identifier
    * @return a predicate
    */
   public static Predicate<Algorithm> fromAlgorithmIdentifier(final AlgorithmIdentifier algorithmIdentifier) {
@@ -95,8 +91,7 @@ public class AlgorithmPredicates {
    * Also, for RSA-PSS, we compare only the digest part of the parameters.
    * </p>
    *
-   * @param algorithmIdentifier
-   *          the algorithm identifier
+   * @param algorithmIdentifier the algorithm identifier
    * @return a predicate
    */
   public static Predicate<Algorithm> fromAlgorithmIdentifierRelaxed(final AlgorithmIdentifier algorithmIdentifier) {
@@ -117,10 +112,10 @@ public class AlgorithmPredicates {
         }
         // Compare the hash algorithms ...
         return Objects.equals(
-          Optional.ofNullable(algorithmIdentifier.getParameters()).map(p -> RSASSAPSSparams.getInstance(p))
-            .map(RSASSAPSSparams::getHashAlgorithm).map(AlgorithmIdentifier::getAlgorithm).orElse(null),
-          Optional.ofNullable(ai.getParameters()).map(p -> RSASSAPSSparams.getInstance(p))
-            .map(RSASSAPSSparams::getHashAlgorithm).map(AlgorithmIdentifier::getAlgorithm).orElse(null));
+            Optional.ofNullable(algorithmIdentifier.getParameters()).map(p -> RSASSAPSSparams.getInstance(p))
+                .map(RSASSAPSSparams::getHashAlgorithm).map(AlgorithmIdentifier::getAlgorithm).orElse(null),
+            Optional.ofNullable(ai.getParameters()).map(p -> RSASSAPSSparams.getInstance(p))
+                .map(RSASSAPSSparams::getHashAlgorithm).map(AlgorithmIdentifier::getAlgorithm).orElse(null));
       }
       return algorithmIdentifier.equals(AlgorithmIdentifierAware.class.cast(algorithm).getAlgorithmIdentifier());
     };
