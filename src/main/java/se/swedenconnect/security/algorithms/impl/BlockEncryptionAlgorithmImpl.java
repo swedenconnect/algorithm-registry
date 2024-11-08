@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
-import java.util.Objects;
-
 import com.nimbusds.jose.Algorithm;
-
 import se.swedenconnect.security.algorithms.BlockEncryptionAlgorithm;
+
+import java.util.Objects;
 
 /**
  * Implementation class for {@link BlockEncryptionAlgorithm}.
@@ -35,20 +34,13 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param keyType
-   *          the key type
-   * @param keyLength
-   *          the key length in bits
-   * @param ivLength
-   *          IV length in bits
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm (may be null)
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param keyType the key type
+   * @param keyLength the key length in bits
+   * @param ivLength IV length in bits
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm (may be null)
    */
   public BlockEncryptionAlgorithmImpl(final String uri, final int order, final String keyType,
       final int keyLength, final int ivLength, final String jcaName, final Algorithm joseAlgorithm) {
@@ -59,8 +51,7 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
   /**
    * Protected constructor used by builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected BlockEncryptionAlgorithmImpl(final String uri) {
     super(uri);
@@ -69,8 +60,7 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static BlockEncryptionAlgorithmBuilder builder(final String uri) {
@@ -86,8 +76,7 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
   /**
    * Assigns the IV length.
    *
-   * @param ivLength
-   *          the IV length
+   * @param ivLength the IV length
    */
   protected void setIvLength(final int ivLength) {
     this.ivLength = ivLength;
@@ -111,10 +100,9 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof BlockEncryptionAlgorithmImpl)) {
+    if (!(obj instanceof final BlockEncryptionAlgorithmImpl other)) {
       return false;
     }
-    final BlockEncryptionAlgorithmImpl other = (BlockEncryptionAlgorithmImpl) obj;
     return this.ivLength == other.ivLength;
   }
 
@@ -136,8 +124,7 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public BlockEncryptionAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -146,8 +133,7 @@ public class BlockEncryptionAlgorithmImpl extends AbstractEncryptionAlgorithm im
     /**
      * Assigns the IV length.
      *
-     * @param ivLength
-     *          the IV length
+     * @param ivLength the IV length
      * @return the builder
      */
     public BlockEncryptionAlgorithmBuilder ivLength(final int ivLength) {

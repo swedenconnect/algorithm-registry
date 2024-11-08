@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package se.swedenconnect.security.algorithms;
 
 /**
  * Representation of a block encryption algorithm.
- * 
+ *
  * @author Martin Lindström (martin@idsec.se)
  * @author Stefan Santesson (stefan@idsec.se)
  */
@@ -25,7 +25,7 @@ public interface BlockEncryptionAlgorithm extends EncryptionAlgorithm {
 
   /**
    * Gets the number of bits for the initialization vector (IV).
-   * 
+   *
    * @return the IV length
    */
   int getIvLength();

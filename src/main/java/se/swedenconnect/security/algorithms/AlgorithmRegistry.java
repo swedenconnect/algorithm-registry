@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,7 @@ public interface AlgorithmRegistry {
   /**
    * Gets the algorithm based on its URI.
    *
-   * @param algorithmUri
-   *          the algorithm URI
+   * @param algorithmUri the algorithm URI
    * @return the algorithm, or null if none is found
    */
   Algorithm getAlgorithm(final String algorithmUri);
@@ -42,12 +41,9 @@ public interface AlgorithmRegistry {
   /**
    * Gets an algorithm based on its URI and type.
    *
-   * @param <T>
-   *          the algorithm type
-   * @param algorithmUri
-   *          the algorithm URI
-   * @param clazz
-   *          the type representing the algorithm
+   * @param <T> the algorithm type
+   * @param algorithmUri the algorithm URI
+   * @param clazz the type representing the algorithm
    * @return the algorithm, or null if none is found
    */
   <T extends Algorithm> T getAlgorithm(final String algorithmUri, final Class<T> clazz);
@@ -58,8 +54,7 @@ public interface AlgorithmRegistry {
    * If more than one algorithm matches the supplied predicate, the one with the lowest order is returned.
    * </p>
    *
-   * @param predicate
-   *          the predicate to apply
+   * @param predicate the predicate to apply
    * @return an Algorithm or null if no algorithms in the registry matches
    * @see AlgorithmPredicates
    */
@@ -71,10 +66,8 @@ public interface AlgorithmRegistry {
    * If more than one algorithm matches the supplied predicate, the one with the lowest order is returned.
    * </p>
    *
-   * @param predicate
-   *          the predicate to apply
-   * @param clazz
-   *          the type representing the algorithm
+   * @param predicate the predicate to apply
+   * @param clazz the type representing the algorithm
    * @return an Algorithm or null if no algorithms in the registry matches
    * @see AlgorithmPredicates
    */
@@ -86,8 +79,7 @@ public interface AlgorithmRegistry {
    * The list is sorted with the lowest algorithms with the lowest order index first.
    * </p>
    *
-   * @param predicate
-   *          the predicate to apply
+   * @param predicate the predicate to apply
    * @return a (possibly empty) list of Algorithm objects
    */
   List<Algorithm> getAlgorithms(final Predicate<Algorithm> predicate);
@@ -98,10 +90,8 @@ public interface AlgorithmRegistry {
    * The list is sorted with the lowest algorithms with the lowest order index first.
    * </p>
    *
-   * @param predicate
-   *          the predicate to apply
-   * @param clazz
-   *          the type representing the algorithm
+   * @param predicate the predicate to apply
+   * @param clazz the type representing the algorithm
    * @return a (possibly empty) list of Algorithm objects
    */
   <T extends Algorithm> List<T> getAlgorithms(final Predicate<Algorithm> predicate, final Class<T> clazz);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package se.swedenconnect.security.algorithms;
 
 /**
  * Base interface for an encryption algorithm.
- * 
+ *
  * @author Martin Lindström (martin@idsec.se)
  * @author Stefan Santesson (stefan@idsec.se)
  */
@@ -25,7 +25,7 @@ public interface EncryptionAlgorithm extends KeyBasedAlgorithm, JoseAlgorithm {
 
   /**
    * Gets the key length in bits.
-   * 
+   *
    * @return the key length
    */
   int getKeyLength();

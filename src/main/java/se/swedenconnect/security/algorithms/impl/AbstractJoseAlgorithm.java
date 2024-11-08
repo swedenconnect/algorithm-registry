@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
+import se.swedenconnect.security.algorithms.JoseAlgorithm;
+
 import java.util.Objects;
 import java.util.Optional;
-
-import se.swedenconnect.security.algorithms.JoseAlgorithm;
 
 /**
  * Abstract implementation of an {@link JoseAlgorithm}.
@@ -34,14 +34,10 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm (may be null)
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm (may be null)
    */
   public AbstractJoseAlgorithm(final String uri, final int order, final String jcaName,
       final com.nimbusds.jose.Algorithm joseAlgorithm) {
@@ -52,8 +48,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
   /**
    * Protected constructor used by builders.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected AbstractJoseAlgorithm(final String uri) {
     super(uri);
@@ -68,8 +63,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
   /**
    * Sets the JOSE algorithm representation for the algorithm.
    *
-   * @param joseAlgorithm
-   *          the JOSE algorithm
+   * @param joseAlgorithm the JOSE algorithm
    */
   protected void setJoseAlgorithm(final com.nimbusds.jose.Algorithm joseAlgorithm) {
     this.joseAlgorithm = joseAlgorithm;
@@ -93,10 +87,9 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof AbstractJoseAlgorithm)) {
+    if (!(obj instanceof final AbstractJoseAlgorithm other)) {
       return false;
     }
-    final AbstractJoseAlgorithm other = (AbstractJoseAlgorithm) obj;
     return Objects.equals(this.joseAlgorithm, other.joseAlgorithm);
   }
 
@@ -104,7 +97,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
   @Override
   public String toString() {
     return String.format("%s, jose-algorithm='%s'", super.toString(),
-      Optional.ofNullable(this.joseAlgorithm).map(com.nimbusds.jose.Algorithm::toString).orElse("-"));
+        Optional.ofNullable(this.joseAlgorithm).map(com.nimbusds.jose.Algorithm::toString).orElse("-"));
   }
 
   /**
@@ -119,8 +112,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public AbstractJoseAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -129,8 +121,7 @@ public abstract class AbstractJoseAlgorithm extends AbstractAlgorithm implements
     /**
      * Sets the JOSE algorithm representation for the algorithm.
      *
-     * @param joseAlgorithm
-     *          the JOSE algorithm
+     * @param joseAlgorithm the JOSE algorithm
      * @return the builder
      */
     public B joseAlgorithm(final com.nimbusds.jose.Algorithm joseAlgorithm) {

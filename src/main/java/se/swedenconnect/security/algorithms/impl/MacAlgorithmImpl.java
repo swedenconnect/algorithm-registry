@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,12 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
-import java.util.Objects;
-import java.util.Optional;
-
 import com.nimbusds.jose.JWSAlgorithm;
-
 import se.swedenconnect.security.algorithms.MacAlgorithm;
 import se.swedenconnect.security.algorithms.MessageDigestAlgorithm;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Implementation class for {@link MacAlgorithm}.
@@ -37,16 +36,11 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm (may be null)
-   * @param messageDigestAlgorithm
-   *          the message digest algorithm this signature algorithm uses
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm (may be null)
+   * @param messageDigestAlgorithm the message digest algorithm this signature algorithm uses
    */
   public MacAlgorithmImpl(final String uri, final int order, final String jcaName, final JWSAlgorithm joseAlgorithm,
       final MessageDigestAlgorithm messageDigestAlgorithm) {
@@ -57,8 +51,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
   /**
    * Protected constructor used by builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected MacAlgorithmImpl(final String uri) {
     super(uri);
@@ -67,8 +60,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static MacAlgorithmBuilder builder(final String uri) {
@@ -84,8 +76,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
   /**
    * Sets the message digest algorithm.
    *
-   * @param messageDigestAlgorithm
-   *          the digest algorithm
+   * @param messageDigestAlgorithm the digest algorithm
    */
   protected void setMessageDigestAlgorithm(final MessageDigestAlgorithm messageDigestAlgorithm) {
     this.messageDigestAlgorithm = Objects.requireNonNull(messageDigestAlgorithm, "messageDigestAlgorithm must be set");
@@ -112,10 +103,9 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof MacAlgorithmImpl)) {
+    if (!(obj instanceof final MacAlgorithmImpl other)) {
       return false;
     }
-    final MacAlgorithmImpl other = (MacAlgorithmImpl) obj;
     return Objects.equals(this.messageDigestAlgorithm, other.messageDigestAlgorithm);
   }
 
@@ -123,7 +113,8 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
   @Override
   public String toString() {
     return String.format("%s, message-digest-algorithm='%s'",
-      super.toString(), Optional.ofNullable(this.messageDigestAlgorithm).map(MessageDigestAlgorithm::getUri).orElse("-"));
+        super.toString(),
+        Optional.ofNullable(this.messageDigestAlgorithm).map(MessageDigestAlgorithm::getUri).orElse("-"));
   }
 
   /**
@@ -138,8 +129,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public MacAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -148,8 +138,7 @@ public class MacAlgorithmImpl extends AbstractJoseAlgorithm implements MacAlgori
     /**
      * Sets the message digest algorithm.
      *
-     * @param messageDigestAlgorithm
-     *          the digest algorithm
+     * @param messageDigestAlgorithm the digest algorithm
      * @return the builder
      */
     public MacAlgorithmBuilder messageDigestAlgorithm(final MessageDigestAlgorithm messageDigestAlgorithm) {

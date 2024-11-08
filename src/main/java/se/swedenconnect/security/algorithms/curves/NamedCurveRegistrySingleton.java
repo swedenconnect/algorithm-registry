@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
  */
 package se.swedenconnect.security.algorithms.curves;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
- * An singleton for easy access to the {@link NamedCurveRegistry}.
+ * A singleton for easy access to the {@link NamedCurveRegistry}.
  *
  * @author Martin Lindström (martin@idsec.se)
  * @author Stefan Santesson (stefan@idsec.se)
@@ -55,13 +55,12 @@ public class NamedCurveRegistrySingleton implements NamedCurveRegistry {
    * Assigns the {@link NamedCurveRegistry} instance to be used by this singleton. If no instance is assigned, a default
    * implementation of the registry will be used.
    *
-   * @param registry
-   *          the registry to be used by the singleton
+   * @param registry the registry to be used by the singleton
    */
   public static void setAlgorithmRegistry(final NamedCurveRegistry registry) {
     if (instance.registry != null) {
       throw new SecurityException(
-        "Cannot assign named curve registry to NamedCurveRegistrySingleton - it has already been initialized");
+          "Cannot assign named curve registry to NamedCurveRegistrySingleton - it has already been initialized");
     }
     instance.registry = registry;
   }
@@ -97,7 +96,7 @@ public class NamedCurveRegistrySingleton implements NamedCurveRegistry {
         this.registry = new StaticNamedCurveRegistry();
       }
     }
-    return registry;
+    return this.registry;
   }
 
 }

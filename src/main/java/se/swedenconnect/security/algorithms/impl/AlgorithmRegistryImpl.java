@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,17 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import se.swedenconnect.security.algorithms.Algorithm;
+import se.swedenconnect.security.algorithms.AlgorithmRegistry;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import se.swedenconnect.security.algorithms.Algorithm;
-import se.swedenconnect.security.algorithms.AlgorithmRegistry;
 
 /**
  * Default implementation of the {@link AlgorithmRegistry} interface.
@@ -55,21 +54,19 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
    * Note: a copy of the supplied registry is made.
    * </p>
    *
-   * @param registry
-   *          initial contents of the registry
+   * @param registry initial contents of the registry
    */
   public AlgorithmRegistryImpl(final List<Algorithm> registry) {
     this();
     if (registry != null) {
-      registry.forEach(a -> this.register(a));
+      registry.forEach(this::register);
     }
   }
 
   /**
    * Registers the given algorithm in the registry.
    *
-   * @param algorithm
-   *          the algorithm to register
+   * @param algorithm the algorithm to register
    */
   public void register(final Algorithm algorithm) {
     log.debug("Registering algorithm: {}", algorithm);
@@ -82,8 +79,7 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
   /**
    * Removes the given algorithm from the registry.
    *
-   * @param algorithmUri
-   *          the algorithm URI
+   * @param algorithmUri the algorithm URI
    */
   public void unregister(final String algorithmUri) {
     final Algorithm alg = this.registry.remove(algorithmUri);
@@ -114,40 +110,40 @@ public class AlgorithmRegistryImpl implements AlgorithmRegistry {
   @Override
   public <T extends Algorithm> T getAlgorithm(final Predicate<Algorithm> predicate, final Class<T> clazz) {
     return this.registry.values().stream()
-      .filter(a -> clazz.isInstance(a))
-      .map(a -> clazz.cast(a))
-      .filter(predicate)
-      .min(Comparator.comparing(Algorithm::getOrder))
-      .orElse(null);
+        .filter(clazz::isInstance)
+        .map(clazz::cast)
+        .filter(predicate)
+        .min(Comparator.comparing(Algorithm::getOrder))
+        .orElse(null);
   }
 
   /** {@inheritDoc} */
   @Override
   public Algorithm getAlgorithm(final Predicate<Algorithm> predicate) {
     return this.registry.values().stream()
-      .filter(predicate)
-      .min(Comparator.comparing(Algorithm::getOrder))
-      .orElse(null);
+        .filter(predicate)
+        .min(Comparator.comparing(Algorithm::getOrder))
+        .orElse(null);
   }
 
   /** {@inheritDoc} */
   @Override
   public List<Algorithm> getAlgorithms(final Predicate<Algorithm> predicate) {
     return this.registry.values().stream()
-      .filter(predicate)
-      .sorted((a1, a2) -> Integer.compare(a1.getOrder(), a2.getOrder()))
-      .collect(Collectors.toList());
+        .filter(predicate)
+        .sorted(Comparator.comparingInt(Algorithm::getOrder))
+        .collect(Collectors.toList());
   }
 
   /** {@inheritDoc} */
   @Override
   public <T extends Algorithm> List<T> getAlgorithms(final Predicate<Algorithm> predicate, final Class<T> clazz) {
     return this.registry.values().stream()
-      .filter(a -> clazz.isInstance(a))
-      .map(a -> clazz.cast(a))
-      .filter(predicate)
-      .sorted((a1, a2) -> Integer.compare(a1.getOrder(), a2.getOrder()))
-      .collect(Collectors.toList());
+        .filter(clazz::isInstance)
+        .map(clazz::cast)
+        .filter(predicate)
+        .sorted(Comparator.comparingInt(Algorithm::getOrder))
+        .collect(Collectors.toList());
   }
 
 }

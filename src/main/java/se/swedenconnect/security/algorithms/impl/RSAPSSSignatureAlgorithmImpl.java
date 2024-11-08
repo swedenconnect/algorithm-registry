@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,14 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
-import java.security.spec.PSSParameterSpec;
-import java.util.Objects;
-import java.util.Optional;
-
 import com.nimbusds.jose.JWSAlgorithm;
-
 import se.swedenconnect.security.algorithms.MessageDigestAlgorithm;
 import se.swedenconnect.security.algorithms.RSAPSSSignatureAlgorithm;
 import se.swedenconnect.security.algorithms.SignatureAlgorithm;
+
+import java.security.spec.PSSParameterSpec;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Implementation class for {@link RSAPSSSignatureAlgorithm}.
@@ -150,10 +149,9 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof RSAPSSSignatureAlgorithmImpl)) {
+    if (!(obj instanceof final RSAPSSSignatureAlgorithmImpl other)) {
       return false;
     }
-    final RSAPSSSignatureAlgorithmImpl other = (RSAPSSSignatureAlgorithmImpl) obj;
     return Objects.equals(this.mgfDigestAlgorithm, other.mgfDigestAlgorithm)
         && Objects.equals(this.mgfUri, other.mgfUri);
   }
@@ -161,7 +159,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    final StringBuffer sb = new StringBuffer(super.toString());
+    final StringBuilder sb = new StringBuilder(super.toString());
     if (this.mgfUri != null) {
       sb.append(", mgf-uri='").append(this.mgfUri).append("'");
     }
@@ -238,7 +236,7 @@ public class RSAPSSSignatureAlgorithmImpl extends SignatureAlgorithmImpl impleme
 
     /** {@inheritDoc} */
     @Override
-    protected RSAPSSSignatureAlgorithmImpl createAlgorithm(String algorithmUri) {
+    protected RSAPSSSignatureAlgorithmImpl createAlgorithm(final String algorithmUri) {
       return new RSAPSSSignatureAlgorithmImpl(algorithmUri);
     }
 

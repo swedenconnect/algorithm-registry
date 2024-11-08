@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
-import java.util.Objects;
-
 import se.swedenconnect.security.algorithms.Algorithm;
+
+import java.util.Objects;
 
 /**
  * Abstract implementation of an {@link Algorithm}.
@@ -42,12 +42,9 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param jcaName
-   *          the JCA name
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param jcaName the JCA name
    */
   public AbstractAlgorithm(
       final String uri, final int order, final String jcaName) {
@@ -59,8 +56,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /**
    * Protected constructor used by builders.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected AbstractAlgorithm(final String uri) {
     this.uri = Objects.requireNonNull(uri, "The algorithm uri must be set");
@@ -87,8 +83,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /**
    * Assigns the JCA name.
    *
-   * @param jcaName
-   *          the JCA name
+   * @param jcaName the JCA name
    */
   protected void setJcaName(final String jcaName) {
     this.jcaName = Objects.requireNonNull(jcaName, "The algorithm JCA name must be set");
@@ -97,8 +92,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /**
    * Assigns the algorithm order.
    *
-   * @param order
-   *          the order
+   * @param order the order
    */
   protected void setOrder(final int order) {
     if (order < 1) {
@@ -116,8 +110,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
   /**
    * Sets whether this algorithm is blacklisted. The default is {@code false}.
    *
-   * @param blacklisted
-   *          whether this algorithm is blacklisted
+   * @param blacklisted whether this algorithm is blacklisted
    */
   public void setBlacklisted(final boolean blacklisted) {
     this.blacklisted = blacklisted;
@@ -135,10 +128,9 @@ public abstract class AbstractAlgorithm implements Algorithm {
     if (this == obj) {
       return true;
     }
-    if (!(obj instanceof AbstractAlgorithm)) {
+    if (!(obj instanceof final AbstractAlgorithm other)) {
       return false;
     }
-    final AbstractAlgorithm other = (AbstractAlgorithm) obj;
     // Don't include order and blacklisted - it's still the same algorithm
     return Objects.equals(this.jcaName, other.jcaName) && Objects.equals(this.uri, other.uri);
   }
@@ -147,7 +139,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
   @Override
   public String toString() {
     return String.format("uri='%s', jca-name='%s', order='%d', blacklisted='%s'",
-      this.uri, this.jcaName, this.order, this.blacklisted);
+        this.uri, this.jcaName, this.order, this.blacklisted);
   }
 
   /**
@@ -160,13 +152,12 @@ public abstract class AbstractAlgorithm implements Algorithm {
       implements AlgorithmBuilder<T> {
 
     /** The algorithm being created. */
-    private T algorithm;
+    private final T algorithm;
 
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public AbstractAlgorithmBuilder(final String algorithmUri) {
       this.algorithm = this.createAlgorithm(algorithmUri);
@@ -182,8 +173,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
     /**
      * Assigns the JCA name.
      *
-     * @param jcaName
-     *          the JCA name
+     * @param jcaName the JCA name
      * @return the builder
      */
     public B jcaName(final String jcaName) {
@@ -194,8 +184,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
     /**
      * Assigns the algorithm order.
      *
-     * @param order
-     *          the order
+     * @param order the order
      * @return the builder
      */
     public B order(final int order) {
@@ -206,8 +195,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
     /**
      * Sets whether this algorithm is blacklisted. The default is {@code false}.
      *
-     * @param blacklisted
-     *          whether this algorithm is blacklisted
+     * @param blacklisted whether this algorithm is blacklisted
      * @return the builder
      */
     public B blacklisted(final boolean blacklisted) {
@@ -218,8 +206,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
     /**
      * Asserts that all fields have been assigned.
      *
-     * @throws IllegalArgumentException
-     *           if a required field is missing
+     * @throws IllegalArgumentException if a required field is missing
      */
     protected void assertCorrect() throws IllegalArgumentException {
       if (this.algorithm.getJcaName() == null) {
@@ -237,8 +224,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
     /**
      * Creates the {@link Algorithm} instance.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      * @return an Algorithm instance
      */
     protected abstract T createAlgorithm(final String algorithmUri);

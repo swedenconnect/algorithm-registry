@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,7 @@ public interface NamedCurveRegistry {
   /**
    * Gets a {@link NamedCurve} based on its name.
    *
-   * @param name
-   *          the name
+   * @param name the name
    * @return the NamedCurve or null if no match is found
    */
   NamedCurve getCurve(final String name);
@@ -38,8 +37,7 @@ public interface NamedCurveRegistry {
   /**
    * Gets a {@link NamedCurve} based on the given predicate.
    *
-   * @param predicate
-   *          the predicate
+   * @param predicate the predicate
    * @return the first curve that matches the supplied predicate, or null if no matches are found
    */
   NamedCurve getCurve(final Predicate<NamedCurve> predicate);
@@ -47,8 +45,7 @@ public interface NamedCurveRegistry {
   /**
    * Gets all curves that matches the given predicate.
    *
-   * @param predicate
-   *          the predicate
+   * @param predicate the predicate
    * @return a (possibly empty) list of NamedCurve objects
    */
   List<NamedCurve> getCurves(final Predicate<NamedCurve> predicate);
