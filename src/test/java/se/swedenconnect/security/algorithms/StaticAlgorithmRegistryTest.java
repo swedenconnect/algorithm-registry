@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package se.swedenconnect.security.algorithms;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import se.swedenconnect.security.algorithms.impl.StaticAlgorithmRegistry;
 
 /**
@@ -29,13 +28,13 @@ import se.swedenconnect.security.algorithms.impl.StaticAlgorithmRegistry;
 public class StaticAlgorithmRegistryTest {
 
   @Test
-  public void testInstantiate() throws Exception {
+  public void testInstantiate() {
     final StaticAlgorithmRegistry registry = new StaticAlgorithmRegistry();
     Assertions.assertNotNull(registry);
   }
 
   @Test
-  public void testAllPresent() throws Exception {
+  public void testAllPresent() {
     final StaticAlgorithmRegistry registry = new StaticAlgorithmRegistry();
 
     for (final Algorithm a : StaticAlgorithmRegistry.getDefaultDigestAlgorithms()) {

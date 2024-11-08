@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,12 +37,9 @@ public class NamedCurve {
   /**
    * Constructor.
    *
-   * @param name
-   *          the name of the curve
-   * @param objectIdentifier
-   *          the ASN.1 object identifier (in string format)
-   * @param keyLength
-   *          the length, in bits, of a key using this curve
+   * @param name the name of the curve
+   * @param objectIdentifier the ASN.1 object identifier (in string format)
+   * @param keyLength the length, in bits, of a key using this curve
    */
   public NamedCurve(final String name, final String objectIdentifier, final int keyLength) {
     this.name = Objects.requireNonNull(name, "name must not be null");
@@ -89,27 +86,27 @@ public class NamedCurve {
   /** {@inheritDoc} */
   @Override
   public int hashCode() {
-    return Objects.hash(keyLength, name, objectIdentifier);
+    return Objects.hash(this.keyLength, this.name, this.objectIdentifier);
   }
 
   /** {@inheritDoc} */
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
-    if (!(obj instanceof NamedCurve)) {
+    if (!(obj instanceof final NamedCurve other)) {
       return false;
     }
-    NamedCurve other = (NamedCurve) obj;
-    return keyLength == other.keyLength && Objects.equals(name, other.name) && Objects.equals(objectIdentifier, other.objectIdentifier);
+    return this.keyLength == other.keyLength && Objects.equals(this.name, other.name) && Objects.equals(
+        this.objectIdentifier, other.objectIdentifier);
   }
 
   /** {@inheritDoc} */
   @Override
   public String toString() {
     return String.format("name='%s', object-identifier='%s', uri='%s', key-length=%d",
-      this.name, this.objectIdentifier, this.getUri(), this.keyLength);
+        this.name, this.objectIdentifier, this.getUri(), this.keyLength);
   }
 
 }

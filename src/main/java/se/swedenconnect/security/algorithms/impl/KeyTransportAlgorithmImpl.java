@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package se.swedenconnect.security.algorithms.impl;
 
 import com.nimbusds.jose.Algorithm;
-
 import se.swedenconnect.security.algorithms.KeyTransportAlgorithm;
 
 /**
@@ -30,16 +29,11 @@ public class KeyTransportAlgorithmImpl extends AbstractKeyBasedAlgorithm impleme
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param keyType
-   *          the key type
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm (may be null)
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param keyType the key type
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm (may be null)
    */
   public KeyTransportAlgorithmImpl(final String uri, final int order,
       final String keyType, final String jcaName, final Algorithm joseAlgorithm) {
@@ -49,8 +43,7 @@ public class KeyTransportAlgorithmImpl extends AbstractKeyBasedAlgorithm impleme
   /**
    * Protected constructor used by the builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected KeyTransportAlgorithmImpl(final String uri) {
     super(uri);
@@ -59,8 +52,7 @@ public class KeyTransportAlgorithmImpl extends AbstractKeyBasedAlgorithm impleme
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static KeyTransportAlgorithmBuilder builder(final String uri) {
@@ -79,8 +71,7 @@ public class KeyTransportAlgorithmImpl extends AbstractKeyBasedAlgorithm impleme
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public KeyTransportAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);

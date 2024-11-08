@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package se.swedenconnect.security.algorithms.impl;
 
 import org.apache.xml.security.signature.XMLSignature;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-
 import se.swedenconnect.security.algorithms.MessageDigestAlgorithm;
 
 /**
@@ -66,7 +65,7 @@ public class NoParamsRSAPSSSignatureAlgorithm extends RSAPSSSignatureAlgorithmIm
   @Override
   public String toString() {
     return String.format("uri='%s', jca-name='%s', key-type='%s', blacklisted='%s'",
-      this.getUri(), this.getJcaName(), this.getKeyType(), this.isBlacklisted());
+        this.getUri(), this.getJcaName(), this.getKeyType(), this.isBlacklisted());
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,15 @@
  */
 package se.swedenconnect.security.algorithms;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import se.swedenconnect.security.algorithms.impl.StaticAlgorithmRegistry;
+
 import java.util.List;
 import java.util.function.Predicate;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import se.swedenconnect.security.algorithms.impl.StaticAlgorithmRegistry;
-
 /**
- * An singleton for easy access to the {@link AlgorithmRegistry}.
+ * A singleton for easy access to the {@link AlgorithmRegistry}.
  *
  * @author Martin Lindström (martin@idsec.se)
  * @author Stefan Santesson (stefan@idsec.se)
@@ -57,13 +56,12 @@ public class AlgorithmRegistrySingleton implements AlgorithmRegistry {
    * Assigns the {@link AlgorithmRegistry} instance to be used by this singleton. If no instance is assigned, a default
    * implementation of the registry will be used.
    *
-   * @param algorithmRegistry
-   *          the registry to be used by the singleton
+   * @param algorithmRegistry the registry to be used by the singleton
    */
   public static void setAlgorithmRegistry(final AlgorithmRegistry algorithmRegistry) {
     if (instance.registry != null) {
       throw new SecurityException(
-        "Cannot assign algorithm registry to AlgorithmRegistrySingleton - it has already been initialized");
+          "Cannot assign algorithm registry to AlgorithmRegistrySingleton - it has already been initialized");
     }
     instance.registry = algorithmRegistry;
   }
@@ -117,7 +115,7 @@ public class AlgorithmRegistrySingleton implements AlgorithmRegistry {
         this.registry = new StaticAlgorithmRegistry();
       }
     }
-    return registry;
+    return this.registry;
   }
 
 }

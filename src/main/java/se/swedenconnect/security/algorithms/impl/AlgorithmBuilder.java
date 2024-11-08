@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import se.swedenconnect.security.algorithms.Algorithm;
 
 /**
  * A builder for creating algorithm objects.
- * 
+ *
  * @author Martin Lindström (martin@idsec.se)
  * @author Stefan Santesson (stefan@idsec.se)
  */
@@ -30,7 +30,7 @@ public interface AlgorithmBuilder<T extends Algorithm> {
    * <p>
    * If invoked several times the method <b>must</b> return the same object.
    * </p>
-   * 
+   *
    * @return the built object
    */
   T build();

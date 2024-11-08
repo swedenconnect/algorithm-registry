@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,18 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
-import java.util.Objects;
-import java.util.Optional;
-
+import com.nimbusds.jose.JWSAlgorithm;
 import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.operator.DefaultSignatureAlgorithmIdentifierFinder;
 import org.bouncycastle.operator.SignatureAlgorithmIdentifierFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.nimbusds.jose.JWSAlgorithm;
-
 import se.swedenconnect.security.algorithms.MessageDigestAlgorithm;
 import se.swedenconnect.security.algorithms.SignatureAlgorithm;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Implementation class for {@link SignatureAlgorithm}.
@@ -42,7 +40,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
   private final static Logger log = LoggerFactory.getLogger(SignatureAlgorithmImpl.class);
 
   /** For getting the AlgorithmIdentifier. */
-  private static SignatureAlgorithmIdentifierFinder algIdFinder =
+  private static final SignatureAlgorithmIdentifierFinder algIdFinder =
       new DefaultSignatureAlgorithmIdentifierFinder();
 
   /** The message digest algorithm. */
@@ -54,18 +52,12 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param keyType
-   *          the key type
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm
-   * @param messageDigestAlgorithm
-   *          the message digest algorithm this signature algorithm uses
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param keyType the key type
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm
+   * @param messageDigestAlgorithm the message digest algorithm this signature algorithm uses
    */
   public SignatureAlgorithmImpl(final String uri, final int order, final String keyType,
       final String jcaName, final JWSAlgorithm joseAlgorithm, final MessageDigestAlgorithm messageDigestAlgorithm) {
@@ -76,8 +68,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
   /**
    * Protected constructor used by builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected SignatureAlgorithmImpl(final String uri) {
     super(uri);
@@ -86,8 +77,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static SignatureAlgorithmBuilder builder(final String uri) {
@@ -103,8 +93,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
   /**
    * Sets the message digest algorithm.
    *
-   * @param messageDigestAlgorithm
-   *          the digest algorithm
+   * @param messageDigestAlgorithm the digest algorithm
    */
   protected void setMessageDigestAlgorithm(final MessageDigestAlgorithm messageDigestAlgorithm) {
     this.messageDigestAlgorithm = Objects.requireNonNull(messageDigestAlgorithm, "messageDigestAlgorithm must be set");
@@ -127,7 +116,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
       try {
         this.algorithmIdentifier = algIdFinder.find(jcaName);
       }
-      catch (final Exception e) {
+      catch (final Exception ignored) {
       }
       if (this.algorithmIdentifier == null) {
         log.info("No AlgorithmIdentifier exists for {}/{}", this.getUri(), this.getJcaName());
@@ -153,10 +142,9 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof SignatureAlgorithmImpl)) {
+    if (!(obj instanceof final SignatureAlgorithmImpl other)) {
       return false;
     }
-    final SignatureAlgorithmImpl other = (SignatureAlgorithmImpl) obj;
     return Objects.equals(this.messageDigestAlgorithm, other.messageDigestAlgorithm);
   }
 
@@ -165,12 +153,13 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
   public String toString() {
 
     return String.format("%s, message-digest-algorithm='%s', algorithm-identifier=[%s]",
-      super.toString(), Optional.ofNullable(this.messageDigestAlgorithm).map(MessageDigestAlgorithm::getUri).orElse("-"),
-      this.algorithmIdentifier != null
-          ? (this.algorithmIdentifier.getParameters() == null
-              ? this.algorithmIdentifier.getAlgorithm().getId()
-              : ASN1Dump.dumpAsString(this.algorithmIdentifier))
-          : "-");
+        super.toString(),
+        Optional.ofNullable(this.messageDigestAlgorithm).map(MessageDigestAlgorithm::getUri).orElse("-"),
+        this.algorithmIdentifier != null
+            ? (this.algorithmIdentifier.getParameters() == null
+            ? this.algorithmIdentifier.getAlgorithm().getId()
+            : ASN1Dump.dumpAsString(this.algorithmIdentifier))
+            : "-");
   }
 
   /**
@@ -185,8 +174,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public SignatureAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -200,7 +188,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
 
     /** {@inheritDoc} */
     @Override
-    protected SignatureAlgorithmImpl createAlgorithm(String algorithmUri) {
+    protected SignatureAlgorithmImpl createAlgorithm(final String algorithmUri) {
       return new SignatureAlgorithmImpl(algorithmUri);
     }
 
@@ -218,8 +206,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public AbstractSignatureAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -228,8 +215,7 @@ public class SignatureAlgorithmImpl extends AbstractKeyBasedAlgorithm implements
     /**
      * Sets the message digest algorithm.
      *
-     * @param messageDigestAlgorithm
-     *          the digest algorithm
+     * @param messageDigestAlgorithm the digest algorithm
      * @return the builder
      */
     public B messageDigestAlgorithm(final MessageDigestAlgorithm messageDigestAlgorithm) {

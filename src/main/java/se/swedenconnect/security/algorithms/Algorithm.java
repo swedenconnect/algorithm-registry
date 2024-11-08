@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,8 +46,8 @@ public interface Algorithm {
 
   /**
    * Gets the order for an algorithm where a lower order is seen as more preferable than an algorithm with a higher
-   * ordering. The ordering is relative to algorithms of the same type, and also other critera such as key or key
-   * length material.
+   * ordering. The ordering is relative to algorithms of the same type, and also other critera such as key or key length
+   * material.
    *
    * @return a positive integer
    */

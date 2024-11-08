@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 package se.swedenconnect.security.algorithms;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Predicate;
-
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.RSASSAPSSparams;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * A set of "ready-to-go" predicates to use when searching for algorithms in the {@link AlgorithmRegistry}.
@@ -58,7 +58,7 @@ public class AlgorithmPredicates {
    * @return a predicate
    */
   public static Predicate<Algorithm> fromType(final AlgorithmType type) {
-    return (a) -> a.getType().equals(type);
+    return (a) -> a.getType() == type;
   }
 
   /**
@@ -68,8 +68,8 @@ public class AlgorithmPredicates {
    * @return a predicate
    */
   public static Predicate<Algorithm> fromKeyType(final String keyType) {
-    return (a) -> KeyBasedAlgorithm.class.isInstance(a)
-        && Objects.equals(KeyBasedAlgorithm.class.cast(a).getKeyType(), keyType);
+    return (a) -> a instanceof KeyBasedAlgorithm
+        && Objects.equals(((KeyBasedAlgorithm) a).getKeyType(), keyType);
   }
 
   /**
@@ -79,8 +79,8 @@ public class AlgorithmPredicates {
    * @return a predicate
    */
   public static Predicate<Algorithm> fromAlgorithmIdentifier(final AlgorithmIdentifier algorithmIdentifier) {
-    return (a) -> AlgorithmIdentifierAware.class.isInstance(a)
-        && Objects.equals(AlgorithmIdentifierAware.class.cast(a).getAlgorithmIdentifier(), algorithmIdentifier);
+    return (a) -> a instanceof AlgorithmIdentifierAware
+        && Objects.equals(((AlgorithmIdentifierAware) a).getAlgorithmIdentifier(), algorithmIdentifier);
   }
 
   /**
@@ -96,10 +96,10 @@ public class AlgorithmPredicates {
    */
   public static Predicate<Algorithm> fromAlgorithmIdentifierRelaxed(final AlgorithmIdentifier algorithmIdentifier) {
     return (algorithm) -> {
-      if (!AlgorithmIdentifierAware.class.isInstance(algorithm)) {
+      if (!(algorithm instanceof AlgorithmIdentifierAware)) {
         return false;
       }
-      final AlgorithmIdentifier ai = AlgorithmIdentifierAware.class.cast(algorithm).getAlgorithmIdentifier();
+      final AlgorithmIdentifier ai = ((AlgorithmIdentifierAware) algorithm).getAlgorithmIdentifier();
       if (ai == null) {
         return false;
       }
@@ -112,12 +112,12 @@ public class AlgorithmPredicates {
         }
         // Compare the hash algorithms ...
         return Objects.equals(
-            Optional.ofNullable(algorithmIdentifier.getParameters()).map(p -> RSASSAPSSparams.getInstance(p))
+            Optional.ofNullable(algorithmIdentifier.getParameters()).map(RSASSAPSSparams::getInstance)
                 .map(RSASSAPSSparams::getHashAlgorithm).map(AlgorithmIdentifier::getAlgorithm).orElse(null),
-            Optional.ofNullable(ai.getParameters()).map(p -> RSASSAPSSparams.getInstance(p))
+            Optional.ofNullable(ai.getParameters()).map(RSASSAPSSparams::getInstance)
                 .map(RSASSAPSSparams::getHashAlgorithm).map(AlgorithmIdentifier::getAlgorithm).orElse(null));
       }
-      return algorithmIdentifier.equals(AlgorithmIdentifierAware.class.cast(algorithm).getAlgorithmIdentifier());
+      return algorithmIdentifier.equals(((AlgorithmIdentifierAware) algorithm).getAlgorithmIdentifier());
     };
   }
 

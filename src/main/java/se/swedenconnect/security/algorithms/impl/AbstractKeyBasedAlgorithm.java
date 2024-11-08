@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package se.swedenconnect.security.algorithms.impl;
 
-import java.util.Objects;
-
 import se.swedenconnect.security.algorithms.KeyBasedAlgorithm;
+
+import java.util.Objects;
 
 /**
  * Abstract implementation of an {@link KeyBasedAlgorithm}.
@@ -33,16 +33,11 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param keyType
-   *          the key type
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm (may be null)
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param keyType the key type
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm (may be null)
    */
   public AbstractKeyBasedAlgorithm(final String uri, final int order, final String keyType, final String jcaName,
       final com.nimbusds.jose.Algorithm joseAlgorithm) {
@@ -53,8 +48,7 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
   /**
    * Protected constructor used by builders.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected AbstractKeyBasedAlgorithm(final String uri) {
     super(uri);
@@ -69,8 +63,7 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
   /**
    * Sets the "key type" for the algorithm.
    *
-   * @param keyType
-   *          the key type
+   * @param keyType the key type
    */
   protected void setKeyType(final String keyType) {
     this.keyType = Objects.requireNonNull(keyType, "keyType must be set");
@@ -94,10 +87,9 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
     if (!super.equals(obj)) {
       return false;
     }
-    if (!(obj instanceof AbstractKeyBasedAlgorithm)) {
+    if (!(obj instanceof final AbstractKeyBasedAlgorithm other)) {
       return false;
     }
-    final AbstractKeyBasedAlgorithm other = (AbstractKeyBasedAlgorithm) obj;
     return Objects.equals(this.keyType, other.keyType);
   }
 
@@ -119,8 +111,7 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public AbstractKeyBasedAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
@@ -129,8 +120,7 @@ public abstract class AbstractKeyBasedAlgorithm extends AbstractJoseAlgorithm im
     /**
      * Sets the "key type" for the algorithm.
      *
-     * @param keyType
-     *          the key type
+     * @param keyType the key type
      * @return the builder
      */
     public B keyType(final String keyType) {

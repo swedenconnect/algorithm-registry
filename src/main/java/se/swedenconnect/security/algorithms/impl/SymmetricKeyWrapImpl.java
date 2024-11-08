@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,18 +28,12 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param keyType
-   *          the key type
-   * @param keyLength
-   *          the key length in bits
-   * @param jcaName
-   *          the JCA name
-   * @param joseAlgorithm
-   *          the JOSE algorithm (may be null)
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param keyType the key type
+   * @param keyLength the key length in bits
+   * @param jcaName the JCA name
+   * @param joseAlgorithm the JOSE algorithm (may be null)
    */
   public SymmetricKeyWrapImpl(final String uri, final int order, final String keyType,
       final int keyLength, final String jcaName, final com.nimbusds.jose.Algorithm joseAlgorithm) {
@@ -49,8 +43,7 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
   /**
    * Protected constructor used by builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected SymmetricKeyWrapImpl(final String uri) {
     super(uri);
@@ -59,8 +52,7 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static SymmetricKeyWrapBuilder builder(final String uri) {
@@ -80,13 +72,13 @@ public class SymmetricKeyWrapImpl extends AbstractEncryptionAlgorithm {
    * @author Stefan Santesson (stefan@idsec.se)
    */
   public static class SymmetricKeyWrapBuilder
-      extends AbstractEncryptionAlgorithm.AbstractEncryptionAlgorithmBuilder<SymmetricKeyWrapImpl, SymmetricKeyWrapBuilder> {
+      extends
+      AbstractEncryptionAlgorithm.AbstractEncryptionAlgorithmBuilder<SymmetricKeyWrapImpl, SymmetricKeyWrapBuilder> {
 
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public SymmetricKeyWrapBuilder(final String algorithmUri) {
       super(algorithmUri);

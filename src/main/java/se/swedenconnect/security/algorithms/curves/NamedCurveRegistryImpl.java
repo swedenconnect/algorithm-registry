@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
  */
 package se.swedenconnect.security.algorithms.curves;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of the {@link NamedCurveRegistry} interface.
@@ -51,21 +51,19 @@ public class NamedCurveRegistryImpl implements NamedCurveRegistry {
    * Note: a copy of the supplied registry is made.
    * </p>
    *
-   * @param registry
-   *          initial contents of the registry
+   * @param registry initial contents of the registry
    */
   public NamedCurveRegistryImpl(final List<NamedCurve> registry) {
     this();
     if (registry != null) {
-      registry.forEach(c -> this.register(c));
+      registry.forEach(this::register);
     }
   }
 
   /**
    * Registers the given curve in the registry.
    *
-   * @param curve
-   *          the curve to register
+   * @param curve the curve to register
    */
   public void register(final NamedCurve curve) {
     log.debug("Registering curve: {}", curve);
@@ -75,8 +73,7 @@ public class NamedCurveRegistryImpl implements NamedCurveRegistry {
   /**
    * Removes the given curve from the registry.
    *
-   * @param name
-   *          the curve name
+   * @param name the curve name
    */
   public void unregister(final String name) {
     final NamedCurve curve = this.registry.remove(name);

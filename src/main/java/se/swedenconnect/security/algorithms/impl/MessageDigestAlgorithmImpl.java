@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sweden Connect
+ * Copyright 2022-2024 Sweden Connect
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import org.bouncycastle.operator.DefaultDigestAlgorithmIdentifierFinder;
 import org.bouncycastle.operator.DigestAlgorithmIdentifierFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import se.swedenconnect.security.algorithms.MessageDigestAlgorithm;
 
 /**
@@ -36,7 +35,7 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
   private final static Logger log = LoggerFactory.getLogger(MessageDigestAlgorithmImpl.class);
 
   /** For getting the AlgorithmIdentifier. */
-  private static DigestAlgorithmIdentifierFinder algIdFinder =
+  private static final DigestAlgorithmIdentifierFinder algIdFinder =
       new DefaultDigestAlgorithmIdentifierFinder();
 
   /** The algorithm identifier. */
@@ -45,12 +44,9 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
   /**
    * Constructor.
    *
-   * @param uri
-   *          the algorithm URI
-   * @param order
-   *          the ordering for the algorithm
-   * @param jcaName
-   *          the JCA name
+   * @param uri the algorithm URI
+   * @param order the ordering for the algorithm
+   * @param jcaName the JCA name
    */
   public MessageDigestAlgorithmImpl(final String uri, final int order, final String jcaName) {
     super(uri, order, jcaName);
@@ -59,8 +55,7 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
   /**
    * Protected constructor used by builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    */
   protected MessageDigestAlgorithmImpl(final String uri) {
     super(uri);
@@ -69,8 +64,7 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
   /**
    * Creates a builder.
    *
-   * @param uri
-   *          the algorithm URI
+   * @param uri the algorithm URI
    * @return the builder
    */
   public static MessageDigestAlgorithmBuilder builder(final String uri) {
@@ -91,7 +85,7 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
       try {
         this.algorithmIdentifier = algIdFinder.find(jcaName);
       }
-      catch (final Exception e) {
+      catch (final Exception ignored) {
       }
       if (this.algorithmIdentifier == null) {
         log.info("No AlgorithmIdentifier exists for {}/{}", this.getUri(), this.getJcaName());
@@ -103,11 +97,11 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
   @Override
   public String toString() {
     return String.format("%s, algorithm-identifier=[%s]", super.toString(),
-      this.algorithmIdentifier != null
-          ? (this.algorithmIdentifier.getParameters() == null
-              ? this.algorithmIdentifier.getAlgorithm().getId()
-              : ASN1Dump.dumpAsString(this.algorithmIdentifier))
-          : "-");
+        this.algorithmIdentifier != null
+            ? (this.algorithmIdentifier.getParameters() == null
+            ? this.algorithmIdentifier.getAlgorithm().getId()
+            : ASN1Dump.dumpAsString(this.algorithmIdentifier))
+            : "-");
   }
 
   /**
@@ -122,8 +116,7 @@ public class MessageDigestAlgorithmImpl extends AbstractAlgorithm implements Mes
     /**
      * Constructor.
      *
-     * @param algorithmUri
-     *          the algorithm URI
+     * @param algorithmUri the algorithm URI
      */
     public MessageDigestAlgorithmBuilder(final String algorithmUri) {
       super(algorithmUri);
