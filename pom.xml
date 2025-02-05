@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>se.swedenconnect.security</groupId>
   <artifactId>algorithm-registry</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2-SNAPSHOT</version>
 
   <name>Sweden Connect :: Algorithm Registry library</name>
   <description>A generic algorithm registry</description>
@@ -15,7 +15,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -111,7 +111,7 @@
     <dependency>
       <groupId>com.nimbusds</groupId>
       <artifactId>nimbus-jose-jwt</artifactId>
-      <version>9.45</version>
+      <version>10.0.1</version>
     </dependency>
 
     <dependency>
@@ -123,21 +123,21 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.11.3</version>
+      <version>5.11.4</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.14.2</version>
+      <version>5.15.2</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
-      <version>5.14.2</version>
+      <version>5.15.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -237,11 +237,6 @@
               <serverId>ossrh</serverId>
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
-              <!--
-                Allows manual inspection of the staging repo before deploying it to the central repo.
-                Use 'mvn nexus-staging:release -Prelease' to release and
-                'mvn nexus-staging:drop' to abort.
-              -->
             </configuration>
           </plugin>
 
